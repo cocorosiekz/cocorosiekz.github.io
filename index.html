@@ -9,7 +9,9 @@
   <meta name="author" content="cocorosiekz">
 
   
-  <meta name="description" content=" Blog Archives Recent Posts ">
+  <meta name="description" content="原文地址：learnyouahaskell.com
+原文作者：Miran Lipovača 翻译：Yuanqing Zhao
+声明：水平很捉急，请勿人参拱鸡。 关于这篇教程 欢迎来到Learn You a Haskell for Great Good！如果你正看到这，很有可能你想学Haskell。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +68,74 @@
       <div class="blog-index">
   
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/29/learnyouahaskell1/">Learn You a Haskell for Great Good(一)介绍</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-29T14:45:07+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>原文地址：<a href="http://learnyouahaskell.com/">learnyouahaskell.com</a>
+原文作者：Miran Lipovača</p>
+
+<p>翻译：Yuanqing Zhao
+声明：水平很捉急，请勿人参拱鸡。</p>
+
+<h2>关于这篇教程</h2>
+
+<p>欢迎来到Learn You a Haskell for Great Good！如果你正看到这，很有可能你想学Haskell。当然，你来对地儿了，但是咱们得先谈谈这篇教程。</p>
+
+<p>我决定写这篇教程一是因为我想巩固我自己的Haskell知识，二也因为我认为我能从我的角度帮助那些刚入门Haskell的人。网络上零零散散有一些关于Haskell的入门。当年劳资开始倒腾Haskell的时候，劳资可不是只通过一份资料就把Haskell搞懂了。我学习的方法是阅读几份不同的入门教程和文章，因为每一个都是从不同于其他的角度来解释某个玩意儿。通过博览群书，我能够把零零散散的部分汇聚到一起，然后我就突然开窍了。所以我写这个东西是为了尝试再添一种学习Haskell的好资源，以便于你能够更有可能找到你想要的那个（说白了就是俺这个啦）。</p>
+
+<p>这篇教程主要是针对那些有指令式编程语言（C、C++、Java、Python等等）经验但是没有进行过函数式语言（Haskell、ML、OCaml等等）编程的人。尽管我打赌即便如果你没有任何明显的编程经验，一个像你这么聪明的人也能够跟得上并且学会Haskell（真是赤裸裸地拍马屁惹）。</p>
+
+<p>我在最终掌握Haskell之前大概有两次学习Haskell失败，因为这门语言看起来实在是太古怪了，我实在是没搞懂它。但是之后有一次我大脑袋咔嚓一声灵光乍现，在跨越了那道最初的门槛之后就是一帆风顺啦。我想我在尽力表达的是：Haskell很棒，如果你对编程感兴趣，你真的应该学学这门语言，即便是最初它看起来这么古怪。学习Haskell就像是第一次学习编程一样————这很有趣！它逼迫你用不同的思维来思考，所以我们要讲到下一部分&hellip;</p>
+
+<h2>所以啥是Haskell啊？</h2>
+
+<p>Haskell是一门<strong>纯函数式编程语言</strong>。在指令式语言中你通过给计算机下达一系列任务然后计算机执行他们来完成目的。例如，你设置变量<code>a</code>为5然后做些别的事然后再把它设为别的值。你有控制流结构来几次重复一个行为。在纯函数式编程中你不需要像前者那样告诉计算机做什么而且是告诉它<em>是</em>什么。一个数的阶乘是所有从1到那个数的数字的乘积，一列数字的和是第一个数字和剩余其他数字的和，等等。你用函数的形式来表达。你也不能设一个变量为某个值然后之后又把它设为别的值。如果你说<code>a</code>是5，你不能之后说它是别的值，因为你刚刚说过它是5。你以为你谁啊，你大忽悠啊？所以在纯函数式编程语言中，函数没有副作用。函数唯一能做的就是计算某个值然后将它返回为结果。起初，这看起来像是某种限制，但是它确实有一些非常好的作用：如果一个函数以相同的参数被调用两次，保证返回相同的结果。这叫做引用透明性，这种特性不只让编译器能够推测程序的行为，还能让你轻松地推导（甚至证明）某个函数是正确的，然后通过把简单的函数粘连到一起从而构建更复杂的函数。</p>
+
+<p>Haskell是<strong>惰性求值</strong>的。这意味着除非被特别指定，否则Haskell不会执行函数然后进行相应计算除非真得被逼迫展示给你一个结果。这一点和引用透明性配合的很好，可以让你将程序想象为一系列的数据变化。Haskell同时还有一些很酷的东西比如无穷数据结构。假设你有一列不变的数字<code>xs = [1,2,3,4,5,6,7,8]</code>还有一个函数<code>doubleMe</code>可以把每一个元素乘以2然后返回一个新数列。如果我们想要在指令式语言中把我们的数列乘以8，所以我们会写<code>doubleMe(doubleMe(doubleMe(xs)))</code>，这样会穿过整个数列然后生成一份卡片然后返回它。然后他会再进行两次遍历数列返回结果。在惰性求值的语言中，对一个数列调用<code>doubleMe</code>但是不强迫它展示结果，最终的结果就是程序好像在对你说“对！对！你说对！伦家待会再弄！”。但是一旦你想要看到结果，第一个<code>doubleMe</code>告诉第二个它想要结果，就是现在！第二个告诉第三个然后第三个不情愿地返回一个双倍的1，就是2。第二个接收到了然后返回4给第一个。第一个看到了然后告诉你第一个元素是8。所以只有当你真正需要这个指的时候它才会穿过一遍数列。在这种方式中，当你想要从一种惰性求值的语言中得到某值，你可以取一些初始数据，高效地变化和修补，从而让它看起来是你最后想要的。</p>
+
+<p>Haskell是<strong>静态类型</strong>的。当你编译你的程序，编译器明白哪一块代码是数字，哪一块是字符串，等等。这意味着许多可能的错误在编译时被捕获。如果你试图把一个数字和一个字符串相加，编译器会冲你哀嚎哟。Haskell使用了一种非常好的类型系统，这种类型系统包含<strong>类型推断</strong>。这意味着你不需要去精确地标注每一段代码是什么类型，因为类型系统会很聪明地搞明白它。如果你说<code>a = 5 + 4</code>，你不需要告诉Haskell<code>a</code>是一个数字，它可以自己弄清楚。类型推断允许你的代码更通用性。在一个你编写的函数中取两个参数然后把它们相加，你不需要精确地指明它们的类型，这段函数可以在任何行为和数字相同的参数中正常执行。</p>
+
+<p>Haskell是<strong>优雅和简洁</strong>的。因为它使用了许多高级概念，Haskell程序通常短于他们的指令式语言等价代码。并且更短的代码更容易维护，错误更少。</p>
+
+<p>Haskell是被某些<strong>真正聪明的家伙</strong>（有博士学位，啧啧啧~）。设计Haskell的工作从1987年开始，那年某个委员会的研究员们聚到一起来设计一种超牛逼的语言。在2003年Haskell报告发布了，定义了这门语言的一个稳定版本。</p>
+
+<h2>开始之前的准备工作</h2>
+
+<p>一个文本编辑器和一个Haskell编译器。你可能已经安装好你最爱的文本编辑器了所以我们不在这上面花时间了。为了这篇教程的目的我们将会使用GHC，最广泛使用的Haskell编译器。最佳的办法就是去下载<a href="http://hackage.haskell.org/platform/">Haskell Platform</a>，包括最基本的Haskell和其他必要组件。</p>
+
+<p>GHC能够载入Haskell脚本（通常以.hs为扩展名）并编译，但是它还有一种交互模式，允许你交互式地和脚本交互（真绕口- -）。交互式地看，你可以从载入的脚本中调用函数，然后结果会直接显示。为了学习，这比你每次改动一点然后在终端上运行程序来编译更快速和容易。交互模式通过在终端输入<code>ghci</code>来开启。如果你已经在一个文件中定义了某些函数，比如说<code>myfunctions.hs</code>，你通过输入<code>:l myfunctions</code>来载入这些函数，然后就可以该干嘛干嘛了，当然要保证<code>myfunctions.hs</code>是在<code>ghci</code>被执行的相同目录下。如果你改动过.hs脚本，再次输入<code>:l myfunctions</code>或者输入<code>:r</code>，也是相同作用的，因为它会重新载入当前的脚本。当我在折腾的时候我通常的工作流是在一个.hs文件中定义某些函数，载入它，胡搞一通，然后改动.hs文件，再次载入，等等。这也是接下来我们将要做的。</p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
     <a href="/blog/archives">Blog Archives</a>
@@ -77,6 +147,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/11/29/learnyouahaskell1/">Learn You a Haskell for Great Good(一)介绍</a>
+      </li>
     
   </ul>
 </section>
