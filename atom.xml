@@ -4,7 +4,7 @@
   <title><![CDATA[cocorosiekz的各种胡言乱语]]></title>
   <link href="http://cocorosiekz.github.io/atom.xml" rel="self"/>
   <link href="http://cocorosiekz.github.io/"/>
-  <updated>2013-11-29T16:44:54+08:00</updated>
+  <updated>2013-11-30T00:00:32+08:00</updated>
   <id>http://cocorosiekz.github.io/</id>
   <author>
     <name><![CDATA[cocorosiekz]]></name>
@@ -14,14 +14,145 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Learn You a Haskell for Great Good(二)出发]]></title>
+    <link href="http://cocorosiekz.github.io/blog/2013/11/29/learnyouahaskell2/"/>
+    <updated>2013-11-29T23:10:28+08:00</updated>
+    <id>http://cocorosiekz.github.io/blog/2013/11/29/learnyouahaskell2</id>
+    <content type="html"><![CDATA[<p>原文地址：<a href="http://learnyouahaskell.com/">learnyouahaskell.com</a>
+原文作者：Miran Lipovača
+翻译：Yuanqing Zhao
+声明：水平很捉急，请勿人参拱鸡。</p>
+
+<h2>准备，设置，走你！</h2>
+
+<p>别磨蹭啦，赶鸭子上架啦。如果你就是传说中的不读任何资料引言的那种奇葩而且你确实这么干了的话，无论如何你还是要读一读上一章引言里的最后一部分，至少那部分解释了你打通全关所需要的准备工作和我们如何载入一个函数（你连怎么载入函数都不知道你搞什么函数式编程？）。首先我们要做的是运行ghc的交互模式（你还不知道怎么运行吧？让你不看引言。）然后运行一些函数来找到点关于Haskell的基本感觉。映入眼帘的就是下面这样。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>GHCi, version 6.8.2: http://www.haskell.org/ghc/  :? for help  
+</span><span class='line'>Loading package base ... linking ... done.  
+</span><span class='line'>Prelude&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>恭喜，你进入GHCI了（多大的进步啊）！默认的提示符是<code>Prelude&gt;</code>但是当你向会话里载入一些东西的时候它可能会变长，所以我们会用<code>ghci&gt;</code>。如果你想要一样的提示符，输入<code>:set
+prompt "ghci&gt; "</code>。
+以下是一些简单的算术运算。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ghci&gt; 2 + 15  
+</span><span class='line'>17  
+</span><span class='line'>ghci&gt; 49 * 100  
+</span><span class='line'>4900  
+</span><span class='line'>ghci&gt; 1892 - 1472  
+</span><span class='line'>420  
+</span><span class='line'>ghci&gt; 5 / 2  
+</span><span class='line'>2.5  
+</span><span class='line'>ghci&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这些都不需要解释了吧（看不懂不要学函数式编程了）。我们可以在一行之中使用多个运算符，所有的常用运算符优先级也都是被采用的。我们可以使用括号来让优先级更精确或者改变优先级。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ghci&gt; (50 * 100) - 4999  
+</span><span class='line'>1  
+</span><span class='line'>ghci&gt; 50 * 100 - 4999  
+</span><span class='line'>1  
+</span><span class='line'>ghci&gt; 50 * (100 - 4999)  
+</span><span class='line'>-244950</span></code></pre></td></tr></table></div></figure>
+
+
+<p>很酷对吧？啊哈？是，我知道不酷，请再忍受臣妾一会儿，臣妾会做到的。这里有个需要注意的小陷阱是负数。如果我们想要负数，最完备的方案就是把它放到括号里。用<code>5
+* -3</code>会让GHCI报错，但是用<code>5 * (-3)</code>就一切正常。
+逻辑代数也相当直接。你可能知道，<code>&amp;&amp;</code>是布尔和，<code>||</code>是布尔或，<code>not</code>否定一个<code>True</code>或者一个<code>False</code>。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ghci&gt; True && False  
+</span><span class='line'>False  
+</span><span class='line'>ghci&gt; True && True  
+</span><span class='line'>True  
+</span><span class='line'>ghci&gt; False || True  
+</span><span class='line'>True   
+</span><span class='line'>ghci&gt; not False  
+</span><span class='line'>True  
+</span><span class='line'>ghci&gt; not (True && True)  
+</span><span class='line'>False</span></code></pre></td></tr></table></div></figure>
+
+
+<p>相等性的测试如下。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ghci&gt; 5 == 5  
+</span><span class='line'>True  
+</span><span class='line'>ghci&gt; 1 == 0  
+</span><span class='line'>False  
+</span><span class='line'>ghci&gt; 5 /= 5  
+</span><span class='line'>False  
+</span><span class='line'>ghci&gt; 5 /= 4  
+</span><span class='line'>True  
+</span><span class='line'>ghci&gt; "hello" == "hello"  
+</span><span class='line'>True</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果输入<code>5 + "llama"</code>或者<code>5 == True</code>会怎么样？好吧，如果我们试一下第一段，我们会得到一个超级可怕大错误哟！</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>No instance for (Num [Char])  
+</span><span class='line'>arising from a use of `+' at &lt;interactive&gt;:1:0-9  
+</span><span class='line'>Possible fix: add an instance declaration for (Num [Char])  
+</span><span class='line'>In the expression: 5 + "llama"  
+</span><span class='line'>In the definition of `it': it = 5 + "llama"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>妈呀！GHCI在这儿想要告诉我们的是<code>"llama"</code>不是个数字所以它不知道怎么把它和5相加。即便它不是<code>"llama"</code>而是<code>"four"</code>或者<code>"4"</code>，Haskell仍然不会把它当数字。<code>+</code>要求它的左边和右边都是数字。如果我们试图输入<code>True == 5</code>，GHCI会告诉我们类型不匹配。反之<code>+</code>只能做作用于数字，<code>==</code>只能作用于两种可以比较的东西。但是问题的关键是它们必须是同一类型的东西。你没法比较苹果和橘子。我们过一会儿再详细研究类型。注意：你可以输入<code>5 + 4.0</code>因为<code>5</code>很卑鄙，可以举止像整数又像浮点数。<code>4.0</code>不能作为整数，所以<code>5</code>是那个要做出适应的。</p>
+
+<p>未完待续</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Learn You a Haskell for Great Good(一)介绍]]></title>
     <link href="http://cocorosiekz.github.io/blog/2013/11/29/learnyouahaskell1/"/>
     <updated>2013-11-29T14:45:07+08:00</updated>
     <id>http://cocorosiekz.github.io/blog/2013/11/29/learnyouahaskell1</id>
     <content type="html"><![CDATA[<p>原文地址：<a href="http://learnyouahaskell.com/">learnyouahaskell.com</a>
-原文作者：Miran Lipovača</p>
-
-<p>翻译：Yuanqing Zhao
+原文作者：Miran Lipovača
+翻译：Yuanqing Zhao
 声明：水平很捉急，请勿人参拱鸡。</p>
 
 <h2>关于这篇教程</h2>
