@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Haskell | cocorosiekz的各种胡言乱语]]></title>
   <link href="http://cocorosiekz.github.io/blog/categories/haskell/atom.xml" rel="self"/>
   <link href="http://cocorosiekz.github.io/"/>
-  <updated>2013-11-30T00:00:32+08:00</updated>
+  <updated>2013-11-30T12:01:53+08:00</updated>
   <id>http://cocorosiekz.github.io/</id>
   <author>
     <name><![CDATA[cocorosiekz]]></name>
@@ -92,7 +92,38 @@ In the definition of `it': it = 5 + "llama"
 </code>
 妈呀！GHCI在这儿想要告诉我们的是<code>"llama"</code>不是个数字所以它不知道怎么把它和5相加。即便它不是<code>"llama"</code>而是<code>"four"</code>或者<code>"4"</code>，Haskell仍然不会把它当数字。<code>+</code>要求它的左边和右边都是数字。如果我们试图输入<code>True == 5</code>，GHCI会告诉我们类型不匹配。反之<code>+</code>只能做作用于数字，<code>==</code>只能作用于两种可以比较的东西。但是问题的关键是它们必须是同一类型的东西。你没法比较苹果和橘子。我们过一会儿再详细研究类型。注意：你可以输入<code>5 + 4.0</code>因为<code>5</code>很卑鄙，可以举止像整数又像浮点数。<code>4.0</code>不能作为整数，所以<code>5</code>是那个要做出适应的。</p>
 
-<p>未完待续</p>
+<p>你可能还不知道，但是我们一直都在用函数。例如，<code>*</code>是一个取两个参数然后把它们相乘的函数。正如你看到的，我们是通过把这个符号放到两个参数中间来实现调用的。这就是我们所称之的<em>中缀</em>函数。大多数不跟数字一起使用的函数称之为<em>前缀</em>函数。我们来看看吧。</p>
+
+<p>函数通常都是前缀的，所以从现在开始我们不会明确指明某个函数是前缀形式的，我们只是这么假设。在大多数指令式语言当中函数是通过指明函数名还有跟在括号里的参数来调用的，参数通常用逗号分隔。在Haskell中，函数的调用是通过这样的方式进行：指明函数名，跟一个空格，跟参数，参数用空格分隔。首先，我们将要尝试调用Haskell中最没劲的函数之一。
+<code>
+ghci&gt; succ 8  
+9
+</code>
+函数<code>succ</code>取任意一个有后继的东西然后返回它的后继。你可以看到（眼不瞎吧？）我们将函数名和参数用一个空格分隔。调用一个多参数的函数也很简单呐。函数<code>min</code>和<code>max</code>取两个有先后次序的东西作为参数。<code>min</code>返回那个小一点儿的，<code>max</code>返回那个大一点儿的。你自己看吧：
+<code>
+ghci&gt; min 9 10  
+9  
+ghci&gt; min 3.4 3.2  
+3.2  
+ghci&gt; max 100 101  
+101
+</code>
+函数应用（通过在一个函数名后加一个空格然后跟参数来调用它）有着最高的优先级。这对我们意味着下面两条表达式（原文用的是statements，鄙视一下噢，纯函数式编程之中应该只提倡表达式，没有语句的概念）是等价的。
+<code>
+ghci&gt; succ 9 + max 5 4 + 1  
+16  
+ghci&gt; (succ 9) + (max 5 4) + 1  
+16
+</code>
+然而，如果我们想要得到数字9和10的乘积的后继，我们不能简单地写<code>succ 9 *
+10</code>，因为这样会得到9的后继，然后与10相乘。应该写为<code>succ (9 *
+10)</code>来得到91。</p>
+
+<p>如果一个函数取两个参数，我们可以通过将函数名包裹到反引号中来实现以中缀函数的形式调用。例如，函数<code>div</code>取两个整数然后将两者做整除运算。运行<code>div 92 10</code>的结果是9。但是当我们像这样进行调用时，关于哪个数是除数哪个数是被除数可能会有一些困惑。所以我们可以通过<code>92 `div` 10</code>这样的形式来实现中缀调用，这样就突然清楚多了。</p>
+
+<p>许多从指令式语言中转来的人可能会坚持括号用来指示函数应用这样的观念。例如，在C语言中用括号来调用函数，比如<code>foo()</code>，<code>bar(1)</code>或者<code>baz(3, "haha")</code>。正如之前我们说过的，在Haskell中空格用来指示函数应用。所以这些函数在Haskell中则是<code>foo</code>，<code>bar 1</code>和<code>baz 3 "haha"</code>。所以如果你看到形如<code>bar (bar 3)</code>的调用，它的意思不是以<code>bar</code>和<code>3</code>为参数调用<code>bar</code>，而是首先以<code>3</code>为参数调用<code>bar</code>得到某个数字，然后以这个数字为参数调用<code>bar</code>。在C语言中，会是<code>bar(bar(3))</code>这样的形式。</p>
+
+<p>未完待续……太你妹长了…</p>
 ]]></content>
   </entry>
   
