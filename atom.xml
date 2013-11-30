@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[cocorosiekz的各种胡言乱语]]></title>
+  <title><![CDATA[cocorosiekz的胡言乱语]]></title>
   <link href="http://cocorosiekz.github.io/atom.xml" rel="self"/>
   <link href="http://cocorosiekz.github.io/"/>
-  <updated>2013-11-30T12:49:28+08:00</updated>
+  <updated>2013-11-30T13:10:06+08:00</updated>
   <id>http://cocorosiekz.github.io/</id>
   <author>
     <name><![CDATA[cocorosiekz]]></name>
